@@ -8,8 +8,9 @@
 		"_miro"
 	],
 	"contact": {
-		"issues": "",
-		"sources": ""
+		"homepage": "https://github.com/20dinosaurs/BassScript",
+		"issues": "https://github.com/20dinosaurs/BassScript/issues/new/choose",
+		"sources": "https://github.com/20dinosaurs/BassScript/tree/main"
 	},
 	"license": "LGPL-3.0-or-later",
 	"icon": "assets/bassscript/icon.png",
