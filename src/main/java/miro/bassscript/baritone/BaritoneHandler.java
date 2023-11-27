@@ -1,13 +1,20 @@
 package miro.bassscript.baritone;
 
 import baritone.api.BaritoneAPI;
+import baritone.api.IBaritone;
 import baritone.api.Settings;
 import net.minecraft.block.Blocks;
 
 import java.util.List;
 
 public class BaritoneHandler {
-     Settings settings = BaritoneAPI.getSettings();
+     private final Settings settings;
+     private final IBaritone baritone;
+
+     public BaritoneHandler() {
+          settings = BaritoneAPI.getSettings();
+          baritone = BaritoneAPI.getProvider().getPrimaryBaritone();
+     }
 
      public void initSettings() {
           getSettings().allowInventory.value = true;
@@ -67,6 +74,10 @@ public class BaritoneHandler {
           getSettings().mineDropLoiterDurationMSThanksLouca.value = 100L;
 
           getSettings().chatDebug.value = true;
+     }
+
+     public IBaritone getBaritone() {
+          return baritone;
      }
 
      public Settings getSettings() {
