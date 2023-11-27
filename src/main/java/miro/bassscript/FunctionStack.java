@@ -7,16 +7,18 @@ import java.util.Deque;
 import java.util.Queue;
 
 public class FunctionStack {
+    private BassScript bassScript;
     private Deque<Function> stack = new ArrayDeque<>();
     private Queue<Function> functionQueue = new ArrayDeque<>();
     private boolean isPaused;
 
-    public FunctionStack(boolean isPaused) {
+    public FunctionStack(BassScript bassScript, boolean isPaused) {
         this.isPaused = isPaused;
+        this.bassScript = bassScript;
     }
 
-    public FunctionStack() {
-        this(true);
+    public FunctionStack(BassScript bassScript) {
+        this(bassScript, true);
     }
 
     public void addFunction(Function function) {
@@ -32,8 +34,12 @@ public class FunctionStack {
     }
 
     public void tick() {
-        if (!functionQueue.isEmpty() && stack.peek() != null) {
-            if (stack.peek().tryPause()) {
+        if (!functionQueue.isEmpty()) {
+            if (stack.peek() != null) {
+                if (stack.peek().tryPause()) {
+                    stack.push(functionQueue.remove());
+                }
+            } else {
                 stack.push(functionQueue.remove());
             }
         }
