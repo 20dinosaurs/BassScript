@@ -1,6 +1,7 @@
 package miro.bassscript.functionutils;
 
 import miro.bassscript.BassScript;
+import miro.bassscript.FunctionStack;
 import miro.bassscript.ITimeable;
 
 
@@ -16,13 +17,17 @@ public abstract class Function implements ITimeable {
      */
     protected BassScript bassScript;
 
+    /**
+     * The function stack to use when running other functions.
+     */
+    protected FunctionStack functionStack;
+
     private Runnable finishCallback;
     private boolean isFirstTick = true;
-
-    // TODO: pass functionstack
-
-    public Function(BassScript bassScript) {
+    
+    public Function(BassScript bassScript, FunctionStack functionStack) {
         this.bassScript = bassScript;
+        this.functionStack = functionStack;
     }
 
     public void init(Runnable finishCallback) {
