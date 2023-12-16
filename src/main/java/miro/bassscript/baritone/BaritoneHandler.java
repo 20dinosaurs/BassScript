@@ -3,17 +3,16 @@ package miro.bassscript.baritone;
 import baritone.api.BaritoneAPI;
 import baritone.api.IBaritone;
 import baritone.api.Settings;
+import miro.bassscript.BassScript;
 import net.minecraft.block.Blocks;
 
 import java.util.List;
 
 public class BaritoneHandler {
-     private final Settings settings;
-     private final IBaritone baritone;
+     private final BassScript bassScript;
 
-     public BaritoneHandler() {
-          settings = BaritoneAPI.getSettings();
-          baritone = BaritoneAPI.getProvider().getPrimaryBaritone();
+     public BaritoneHandler(BassScript bassScript) {
+          this.bassScript = bassScript;
      }
 
      public void initSettings() {
@@ -77,10 +76,13 @@ public class BaritoneHandler {
      }
 
      public IBaritone getBaritone() {
-          return baritone;
+          if (bassScript.getPlayer() == null) {
+               return BaritoneAPI.getProvider().getPrimaryBaritone();
+          }
+          return BaritoneAPI.getProvider().getBaritoneForPlayer(bassScript.getPlayer());
      }
 
      public Settings getSettings() {
-          return settings;
+          return BaritoneAPI.getSettings();
      }
 }

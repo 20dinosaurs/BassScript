@@ -1,8 +1,10 @@
 package miro.bassscript.functionutils;
 
 import miro.bassscript.BassScript;
-import miro.bassscript.FunctionStack;
 import miro.bassscript.ITimeable;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.network.ClientPlayerEntity;
+import net.minecraft.client.world.ClientWorld;
 
 
 /**
@@ -16,25 +18,46 @@ public abstract class Function implements ITimeable {
      * The current instance of BassScript.
      */
     protected BassScript bassScript;
-
+    /**
+     * Minecraft.
+     */
+    protected MinecraftClient minecraft;
+    /**
+     * The player.
+     */
+    protected ClientPlayerEntity player;
+    /**
+     * The world.
+     */
+    protected ClientWorld world;
     /**
      * The function stack to use when running other functions.
      */
     protected FunctionStack functionStack;
+    protected Runnable finishCallback;
 
-    private Runnable finishCallback;
     private boolean isFirstTick = true;
-    
+
     public Function(BassScript bassScript, FunctionStack functionStack) {
         this.bassScript = bassScript;
+        this.minecraft = bassScript.getMinecraft();
+        this.player = bassScript.getPlayer();
+        this.world = bassScript.getWorld();
         this.functionStack = functionStack;
     }
 
+    /**
+     * Called when the Function is created and about to be added the stack.
+     * Use this to initialize values and calculate estimated time.
+     * Every other method is guaranteed to be called after this one.
+     */
     public void init(Runnable finishCallback) {
         this.finishCallback = finishCallback;
-        onInit();
     }
 
+    /**
+     * Call this every tick, but not when paused.
+     */
     public void tick() {
         if (isFirstTick) {
             start();
@@ -47,7 +70,7 @@ public abstract class Function implements ITimeable {
     /**
      * Function to call when you have finished.
      */
-    public void finish() {
+    protected void finish() {
         stop();
         finishCallback.run();
     }
