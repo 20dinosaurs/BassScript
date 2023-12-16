@@ -2,6 +2,7 @@ package miro.bassscript;
 
 import baritone.api.IBaritone;
 import miro.bassscript.baritone.BaritoneHandler;
+import miro.bassscript.functionutils.FunctionStack;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientLifecycleEvents;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
