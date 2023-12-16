@@ -75,6 +75,10 @@ public abstract class Function implements ITimeable {
         finishCallback.run();
     }
 
+    @Override
+    public String toString() {
+        return "[" + name() + "]" + " " + desc();
+    }
 
     // TODO: pass interrupt to pause methods
 
@@ -112,13 +116,6 @@ public abstract class Function implements ITimeable {
     // ABSTRACT METHODS
 
     /**
-     * Called when the Function is created and about to be added the stack.
-     * Use this to initialize values and calculate estimated time.
-     * Every other method is guaranteed to be called after this one.
-     */
-    protected abstract void onInit();
-
-    /**
      * Called every tick.
      */
     protected abstract void onTick();
@@ -143,4 +140,18 @@ public abstract class Function implements ITimeable {
      * Called when the function is resumed from being paused.
      */
     public abstract void resume();
+
+    /**
+     * The name of the function. Should be short (a few words).
+     *
+     * @return The name of the function.
+     */
+    public abstract String name();
+
+    /**
+     * A short description of the function. Should explain the parameters.
+     *
+     * @return A short description of the function
+     */
+    public abstract String desc();
 }
