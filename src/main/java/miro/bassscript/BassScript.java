@@ -2,10 +2,12 @@ package miro.bassscript;
 
 import baritone.api.IBaritone;
 import miro.bassscript.baritone.BaritoneHandler;
+import miro.bassscript.functions.GoToXYZFunction;
 import miro.bassscript.functionutils.FunctionStack;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientLifecycleEvents;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
+import net.fabricmc.fabric.api.client.message.v1.ClientSendMessageEvents;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.world.ClientWorld;
@@ -22,6 +24,7 @@ public class BassScript implements ClientModInitializer {
 		ClientLifecycleEvents.CLIENT_STARTED.register((client) -> onInitializeReady());
 
 		ClientTickEvents.START_CLIENT_TICK.register((client) -> onStartTick());
+		ClientSendMessageEvents.ALLOW_CHAT.register(this::onChat);
 	}
 
 	private void onInitializeReady() {
@@ -36,6 +39,15 @@ public class BassScript implements ClientModInitializer {
 
 	private void onStartTick() {
 		functionStack.tick();
+	}
+
+	private boolean onChat(String message) {
+		if (message.equals("gaming")) {
+			functionStack.addFunction(new GoToXYZFunction(this, functionStack, 64, 64, 64));
+			return true;
+		}
+
+		return false;
 	}
 
 	public MinecraftClient getMinecraft() {
