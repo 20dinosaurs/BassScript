@@ -1,6 +1,6 @@
-package miro.bassscript;
+package miro.bassscript.functionutils;
 
-import miro.bassscript.functionutils.Function;
+import miro.bassscript.BassScript;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
@@ -33,14 +33,19 @@ public class FunctionStack {
         }
     }
 
+    private void pushToStack(Function function) {
+        stack.push(function);
+        bassScript.getLogger().logInfo("Added function " + function.name());
+    }
+
     public void tick() {
         if (!functionQueue.isEmpty()) {
             if (stack.peek() != null) {
                 if (stack.peek().tryPause()) {
-                    stack.push(functionQueue.remove());
+                    pushToStack(functionQueue.remove());
                 }
             } else {
-                stack.push(functionQueue.remove());
+                pushToStack(functionQueue.remove());
             }
         }
 
