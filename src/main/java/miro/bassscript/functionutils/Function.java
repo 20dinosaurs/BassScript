@@ -1,5 +1,6 @@
 package miro.bassscript.functionutils;
 
+import miro.bassscript.BSLogger;
 import miro.bassscript.BassScript;
 import miro.bassscript.ITimeable;
 import net.minecraft.client.MinecraftClient;
@@ -18,6 +19,10 @@ public abstract class Function implements ITimeable {
      * The current instance of BassScript.
      */
     protected BassScript bassScript;
+    /**
+     * The logger.
+     */
+    protected BSLogger logger;
     /**
      * Minecraft.
      */
@@ -40,6 +45,7 @@ public abstract class Function implements ITimeable {
 
     public Function(BassScript bassScript, FunctionStack functionStack) {
         this.bassScript = bassScript;
+        this.logger = bassScript.getLogger();
         this.minecraft = bassScript.getMinecraft();
         this.player = bassScript.getPlayer();
         this.world = bassScript.getWorld();
