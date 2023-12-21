@@ -1,4 +1,4 @@
-package miro.bassscript.items;
+package miro.bassscript.item;
 
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.Item;

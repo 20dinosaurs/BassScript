@@ -4,7 +4,7 @@ import baritone.api.IBaritone;
 import miro.bassscript.baritone.BaritoneHandler;
 import miro.bassscript.functions.MineBlocksFunction;
 import miro.bassscript.functionutils.FunctionStack;
-import miro.bassscript.items.SimpleItemCollection;
+import miro.bassscript.item.SimpleItemCollection;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientLifecycleEvents;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;

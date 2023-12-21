@@ -3,8 +3,8 @@ package miro.bassscript.functions;
 import miro.bassscript.BassScript;
 import miro.bassscript.functionutils.Function;
 import miro.bassscript.functionutils.FunctionStack;
-import miro.bassscript.items.IItemCollection;
-import miro.bassscript.items.ItemUtils;
+import miro.bassscript.item.IItemCollection;
+import miro.bassscript.item.ItemUtils;
 import net.minecraft.block.Block;
 
 import java.util.Set;
