@@ -28,7 +28,7 @@ public class GoToGoalFunction extends Function {
 
     @Override
     public void stop() {
-        pause();
+        tryPause();
     }
 
     @Override
