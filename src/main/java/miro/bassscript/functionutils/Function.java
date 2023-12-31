@@ -11,8 +11,6 @@ import net.minecraft.client.world.ClientWorld;
 /**
  * All Functions extend this class.
  * Provides access to the Function's {@link BassScript} instance.
- * <p>
- * Make sure to call {@link Function#finish}.
  */
 public abstract class Function implements ITimeable {
     /**
@@ -39,7 +37,6 @@ public abstract class Function implements ITimeable {
      * The function stack to use when running other functions.
      */
     protected FunctionStack functionStack;
-    protected Runnable finishCallback;
 
     private boolean isFirstTick = true;
 
@@ -57,8 +54,7 @@ public abstract class Function implements ITimeable {
      * Use this to initialize values and calculate estimated time.
      * Every other method is guaranteed to be called after this one.
      */
-    public void init(Runnable finishCallback) {
-        this.finishCallback = finishCallback;
+    public void init() {
     }
 
     /**
@@ -71,14 +67,6 @@ public abstract class Function implements ITimeable {
         } else {
             onTick();
         }
-    }
-
-    /**
-     * Function to call when you have finished.
-     */
-    protected void finish() {
-        stop();
-        finishCallback.run();
     }
 
     @Override
@@ -148,7 +136,16 @@ public abstract class Function implements ITimeable {
     public abstract void resume();
 
     /**
-     * The name of the function. Should be short (a few words).
+     * Whether the function is finished.
+     * If true is returned, the function will be stopped and removed from the stack.
+     * Called every tick.
+     *
+     * @return Whether the function is finished.
+     */
+    public abstract boolean isFinished();
+
+    /**
+     * The name of the function. Should be short (a few words) and an unchanging constant.
      *
      * @return The name of the function.
      */

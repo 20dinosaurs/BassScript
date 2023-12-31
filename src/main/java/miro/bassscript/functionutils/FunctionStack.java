@@ -22,7 +22,7 @@ public class FunctionStack {
     }
 
     public void addFunction(Function function) {
-        function.init(this::removeFunction);
+        function.init();
         functionQueue.add(function);
     }
 
@@ -39,6 +39,16 @@ public class FunctionStack {
     }
 
     public void tick() {
+        if (!isPaused) {
+            if (stack.peek() != null) {
+                stack.peek().tick();
+            }
+        }
+
+        if (stack.peek() != null && stack.peek().isFinished()) {
+            removeFunction();
+        }
+
         if (!functionQueue.isEmpty()) {
             if (stack.peek() != null) {
                 if (stack.peek().tryPause()) {
@@ -46,12 +56,6 @@ public class FunctionStack {
                 }
             } else {
                 pushToStack(functionQueue.remove());
-            }
-        }
-
-        if (!isPaused) {
-            if (stack.peek() != null) {
-                stack.peek().tick();
             }
         }
     }

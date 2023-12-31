@@ -31,10 +31,6 @@ public class MineBlocksFunction extends Function {
 
     @Override
     protected void onTick() {
-        if (items.isMetBy(player.getInventory())) {
-            finish();
-        }
-
         if (!blocksGiven) {
             IItemCollection unmetItems = items.getItemsUnmetBy(player.getInventory());
 
@@ -74,6 +70,11 @@ public class MineBlocksFunction extends Function {
     @Override
     public void resume() {
         bassScript.getBaritone().getMineProcess().mine(blocks.toArray(new Block[0]));
+    }
+
+    @Override
+    public boolean isFinished() {
+        return items.isMetBy(player.getInventory());
     }
 
     @Override

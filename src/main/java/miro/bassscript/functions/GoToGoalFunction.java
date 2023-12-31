@@ -14,11 +14,7 @@ public class GoToGoalFunction extends Function {
     }
 
     @Override
-    protected void onTick() {
-        if (goal.isInGoal(bassScript.getPlayer().getBlockPos())) {
-            finish();
-        }
-    }
+    protected void onTick() {}
 
     @Override
     public void start() {
@@ -47,6 +43,11 @@ public class GoToGoalFunction extends Function {
     @Override
     public void resume() {
         bassScript.getBaritone().getCustomGoalProcess().setGoalAndPath(goal);
+    }
+
+    @Override
+    public boolean isFinished() {
+        return goal.isInGoal(bassScript.getPlayer().getBlockPos());
     }
 
     @Override
